@@ -60,10 +60,10 @@ function createRock(x) {
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
-  rock.style.top = 0
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = rock.style.top
+
 
   /**
    * Now that we have a rock, we'll need to append
@@ -78,9 +78,7 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
-
-
-
+    rock.style.top = `${top += 2}px`
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
@@ -93,15 +91,15 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else if (top < GAME_HEIGHT) {
-       rock.style.top = `${top += 2}px`
+     if (top < GAME_HEIGHT) {
+
        window.requestAnimationFrame(moveRock)
      }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     else {
+     else if (top >= GAME_HEIGHT) {
        rock.remove()
      }
   }
@@ -129,7 +127,7 @@ function endGame() {
     rock.remove()
   })
 
-  window.removeEventListener('keydown', moveDodger)
+  document.removeEventListener('keydown', moveDodger)
 
   return alert("YOU LOSE!")
 }
@@ -144,8 +142,7 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
    if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
-     e.preventDefault()
-     e.stopPropagation()
+
    }
 
    if (e.which === LEFT_ARROW) {
