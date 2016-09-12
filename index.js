@@ -60,6 +60,7 @@ function createRock(x) {
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
+  rock.style.top = 0
 
   // Hmmm, why would we have used `var` here?
   var top = 0
@@ -130,7 +131,7 @@ function endGame() {
 
   window.removeEventListener('keydown', moveDodger)
 
-  alert("YOU LOSE!")
+  return alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -148,15 +149,17 @@ function moveDodger(e) {
    }
 
    if (e.which === LEFT_ARROW) {
-     moveDodgerLeft()
      e.preventDefault()
      e.stopPropagation()
+     moveDodgerLeft()
+
    }
 
    if (e.which === RIGHT_ARROW) {
-     moveDodgerRight()
      e.preventDefault()
      e.stopPropagation()
+     moveDodgerRight()
+
    }
 }
 
